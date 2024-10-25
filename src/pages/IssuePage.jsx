@@ -1,18 +1,46 @@
 import emailjs from "@emailjs/browser";
-import { useRef } from "react";
+import React, { useState } from "react";
 function IssuePage() {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [messageError, setMessageError] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  let templateParams = {
-    from_name: "James",
-    message: "Check this out!",
-  };
+  function validateEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
   function sendMail() {
+    if (message.trim() === "") {
+      setMessageError("Phản hồi không được để trống.");
+      setIsModalOpen(false); 
+      return; 
+    } else {
+      setMessageError(""); 
+      setIsModalOpen(false)
+    }
+    if (!validateEmail(email)) {
+      setEmailError("Vui lòng nhập địa chỉ email hợp lệ.");
+      setIsModalOpen(false)
+      return;
+    } else {
+      setIsModalOpen(false)
+      setEmailError(""); 
+    }
+
+    
+    const templateParams = {
+      from_name: email, 
+      message: message, 
+    };
     emailjs
       .send(
-        "<>",
-        "template_azmnoyw",
+        "service_1jeq7jq",
+        "template_2g5s24p",
         templateParams,
-        "<>"
+        "v85q955yWJU3ZvOPi"
       )
       .then(
         function (response) {
@@ -20,16 +48,20 @@ function IssuePage() {
         },
         function (error) {
           console.log("FAILED...", error);
+         
         }
       );
+    setIsModalOpen(true)
+    setEmail("");
+    setMessage("");
   }
 
+  
+
   return (
-    <div className="flex justify-center h-[85vh] bg-gradient-to-br from-blue-100 to-purple-100">
-      {/* The button to open modal */}
-      {/* Put this part before </body> tag */}
+    <div className="flex  justify-center h-[85vh] bg-gradient-to-br from-blue-100 to-purple-100">
       <input type="checkbox" id="my-modal" className="modal-toggle" />
-      <div className="modal">
+       {isModalOpen &&<div className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Gửi thành công 🥳</h3>
           <p className="py-4">
@@ -43,9 +75,10 @@ function IssuePage() {
           </div>
         </div>
       </div>
+      }
       <div className="md:w-[50%]">
         <h1 className="text-3xl text-center font-bold p-5 bg-[linear-gradient(90deg,hsl(var(--s))_0%,hsl(var(--sf))_9%,hsl(var(--pf))_42%,hsl(var(--p))_47%,hsl(var(--a))_100%)] bg-clip-text will-change-auto [-webkit-text-fill-color:transparent] [transform:translate3d(0,0,0)] motion-reduce:!tracking-normal max-[1280px]:!tracking-normal [@supports(color:oklch(0_0_0))]:bg-[linear-gradient(90deg,hsl(var(--s))_4%,color-mix(in_oklch,hsl(var(--sf)),hsl(var(--pf)))_22%,hsl(var(--p))_45%,color-mix(in_oklch,hsl(var(--p)),hsl(var(--a)))_67%,hsl(var(--a))_100.2%)]">
-          Báo lỗi hoặc góp ý
+          Góp ý hoặc báo lỗi
         </h1>
         <p className="text-justify font-semibold text-sm pr-2 pl-2">
           Sự đóng góp ý kiến từ các bạn sẽ là sự hỗ trợ đắc lực giúp chúng tôi
@@ -54,12 +87,21 @@ function IssuePage() {
 
         <textarea
           placeholder="Nhập phản hồi của bạn tại đây!"
-          className="mt-5 mb-3 h-[30%] textarea textarea-bordered textarea-md w-full "
+          className="mt-5 h-[30%] textarea textarea-bordered textarea-md w-full "
+          onChange={(e) => setMessage(e.target.value)}
+          value={message}
         ></textarea>
-        <input type=" text" placeholder="Email của bạn" className="input w-full max-w-xs" />
+        {messageError && <p className="text-red-500">{messageError}</p>}
+        <input type="text" 
+          placeholder="Email của bạn" 
+          className="input w-full max-w-xs mt-4"   
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+        />
+        {emailError && <p className="text-red-500">{emailError}</p>}
         <label
           htmlFor="my-modal"
-          // onClick={()=>sendMail()}
+          onClick={()=>sendMail()}
           class=" mt-5 w-full btn btn-primary btn-md  bg-gradient-to-tl from-transparent via-blue-600 to-indigo-500"
         >
           Gửi ý kiến

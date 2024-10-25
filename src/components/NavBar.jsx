@@ -3,7 +3,7 @@ function NavBar() {
   const navigate = useNavigate ();
   const location = useLocation();
   return (
-    <div className="navbar bg-base-100 w-[95%] ">
+    <div className="navbar bg-base-100 w-full ">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -43,13 +43,13 @@ function NavBar() {
             </li>
             <li>
               <Link to="/issue">
-              <a>Báo lỗi/ Góp ý</a>
+              <a>Góp ý/Báo lỗi</a>
               </Link>
             </li>
           </ul>
         </div>
         <a  onClick={()=>navigate("/")}  className="btn btn-ghost normal-case font-extrabold text-xl bg-[linear-gradient(90deg,hsl(var(--s))_0%,hsl(var(--sf))_9%,hsl(var(--pf))_42%,hsl(var(--p))_47%,hsl(var(--a))_100%)] bg-clip-text will-change-auto [-webkit-text-fill-color:transparent] [transform:translate3d(0,0,0)] motion-reduce:!tracking-normal max-[1280px]:!tracking-normal [@supports(color:oklch(0_0_0))]:bg-[linear-gradient(90deg,hsl(var(--s))_4%,color-mix(in_oklch,hsl(var(--sf)),hsl(var(--pf)))_22%,hsl(var(--p))_45%,color-mix(in_oklch,hsl(var(--p)),hsl(var(--a)))_67%,hsl(var(--a))_100.2%)]">
-        NTTU Chatbot
+        PTIT Chatbot
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -64,14 +64,11 @@ function NavBar() {
               <button onClick={()=>navigate("/faq")} className={location.pathname=="/faq"?"btn btn-outline btn-primary":""}>FAQs</button>
           </li>
           <li className='p-1'>
-              <button onClick={()=>navigate("/issue")} className={location.pathname=="/issue"?"btn btn-outline btn-primary":""}>Báo lỗi/ Góp ý</button>
+              <button onClick={()=>navigate("/issue")} className={location.pathname=="/issue"?"btn btn-outline btn-primary":""}>Góp ý/Báo lỗi</button>
           </li>
         </ul>
       </div>
       <div className="navbar-end">
-        {/* <a className="btn btn-outline btn-primary md:flex hidden">
-            Đăng nhập
-          </a> */}
       </div>
     </div>
   );
