@@ -3,13 +3,15 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import { TypeAnimation } from "react-type-animation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
+import axios from 'axios';
+
 function ChatBot() {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const [timeOfRequest, SetTimeOfRequest] = useState(0);
   let [promptInput, SetPromptInput] = useState("");
-  let [sourceData, SetSourceData] = useState("ptit");
   let [chatHistory, SetChatHistory] = useState([]);
+
   const commonQuestions=[
     "Học viện có bao nhiêu loại học bổng?",
     "Các mốc thời gian quan trọng trong việc tuyển sinh?",
@@ -36,20 +38,20 @@ function ChatBot() {
     "Các trang web chính thức của học viện?",
 
   ]
-  let [isLoading, SetIsLoad] = useState(false);
+  let [isLoading, SetIsLoading] = useState(false);
   let [isGen, SetIsGen] = useState(false);
   const [dataChat, SetDataChat] = useState([
     [
       "start",
       [
-        "Xin chào! Đây là PTIT Chatbot, trợ lý đắc lực dành cho bạn! Bạn muốn tìm kiếm thông tin về những gì? Đừng quên chọn nguồn tham khảo phù hợp để mình có thể giúp bạn tìm kiếm thông tin chính xác nhất nha. 😄",
+        "Chào bạn! Tôi là PTIT chatbot, một trợ lý ảo được thiết kế để giúp bạn giải đáp thắc mắc và cung cấp thông tin hữu ích về việc tuyển sinh tại Học Viện. Bạn cần tôi hỗ trợ điều gì hôm nay? 😄",
         null,
       ],
     ],
   ]);
   useEffect(() => {
     ScrollToEndChat();
-  }, [isLoading]);
+  }, [isGen]);
   useEffect(() => {
     const interval = setInterval(() => {
       SetTimeOfRequest((timeOfRequest) => timeOfRequest + 1);
@@ -62,31 +64,38 @@ function ChatBot() {
   }
   const onChangeHandler = (event) => {
     SetPromptInput(event.target.value);
-  };
-
+  }
+  const sendTelegramBotForGgsheet = async () => {
+    try {
+      const data = {
+        ["question"]: promptInput,
+      };
+      await axios
+        .post(
+          "https://api.sheetbest.com/sheets/5d12cce3-725a-4e8d-9b8d-a6269fe1688b",
+          data
+        )
+    } catch (err) {
+      console.log("err: ", err);
+    }
+  }
   async function SendMessageChat() {
     if (promptInput !== "" && isLoading === false) {
       SetTimeOfRequest(0);
       SetIsGen(true);
       SetPromptInput("");
-      SetIsLoad(true);
-      SetDataChat((prev) => [...prev, ["end", [promptInput, sourceData]]]);
+      SetIsLoading(true);
+      SetDataChat((prev) => [...prev, ["end", [promptInput]]]);
       SetChatHistory((prev) => [promptInput, ...prev]);
   
       try {
-        const response = await fetch(
-          "https://toad-vast-civet.ngrok-free.app/rag/" + sourceData + "?q=" + promptInput,
-          {
-            method: "get",
-            headers: new Headers({
-              "ngrok-skip-browser-warning": "69420",
-            }),
-          }
-        );
-        const result = await response.json();
+        await sendTelegramBotForGgsheet();
+        // Gửi yêu cầu đến API bằng axios
+        const response = await axios.get("http://127.0.0.1:5000/api/chatbot", { params: { q: promptInput } }); // Sử dụng promptInput thay cho query
+        // Xử lý dữ liệu phản hồi từ API
         SetDataChat((prev) => [
-          ...prev,
-          ["start", [result.result, result.source_documents, sourceData]],
+            ...prev,
+            ["start", [response.data]], // Thay đổi theo cấu trúc dữ liệu của API
         ]);
       } catch (error) {
         SetDataChat((prev) => [
@@ -94,14 +103,13 @@ function ChatBot() {
           ["start", ["Lỗi, không thể kết nối với server", null]],
         ]);
       } finally {
-        SetIsLoad(false);
+        SetIsLoading(false);
         if (inputRef.current) {
           inputRef.current.focus(); 
         }
       }
     }
   }
-  
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -165,7 +173,7 @@ function ChatBot() {
       </div>
 
       <div className={"flex justify-center h-[80vh]"}>
-        <div
+        <div 
           id="chat-area"
           className="
           mt-5 text-sm 
@@ -181,7 +189,7 @@ function ChatBot() {
                     <img className="scale-150" src="/assets/robot_image.png"/>
                   </div>
                 </div>
-                <div className="chat-bubble chat-bubble-info colo break-words ">
+                <div className="chat-bubble chat-bubble-info break-words ">
                   <TypeAnimation
                     style={{ whiteSpace: 'pre-line' }} 
                     sequence={[
@@ -189,10 +197,10 @@ function ChatBot() {
                       ,
                       () => SetIsGen(false),
                     ]}
+                    onTyping={() => scrollToBottom()}
                     cursor={false}
                     speed={100}
                   />
-                  
                 </div>
               </div>
             ) : (
@@ -221,11 +229,13 @@ function ChatBot() {
                 />
                 <p className="text-xs font-medium">{timeOfRequest + "/60s"}</p>
               </div>
+              
             </div>
           ) : (
             ""
           )}
           <div ref={messagesEndRef} />
+
           <div className="absolute bottom-[0.2rem] md:w-[50%] grid ">
             <input
               type="text"
@@ -236,6 +246,7 @@ function ChatBot() {
               onKeyDown={handleKeyDown}
               // disabled={isGen}
               value={promptInput}
+
             />
 
             <button
@@ -266,6 +277,7 @@ function ChatBot() {
           </div>
         </div>
       </div>
+
     </div>
   );
 }
