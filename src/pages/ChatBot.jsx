@@ -10,8 +10,10 @@ function ChatBot() {
   const inputRef = useRef(null);
   const [timeOfRequest, SetTimeOfRequest] = useState(0);
   let [promptInput, SetPromptInput] = useState("");
-  let [chatHistory, SetChatHistory] = useState([]);
+  const [input, SetInput] = useState("");
+  const [output, SetOutput] = useState("");
 
+  let [chatHistory, SetChatHistory] = useState([]);
   const commonQuestions=[
     "Học viện có bao nhiêu loại học bổng?",
     "Các mốc thời gian quan trọng trong việc tuyển sinh?",
@@ -64,32 +66,39 @@ function ChatBot() {
   }
   const onChangeHandler = (event) => {
     SetPromptInput(event.target.value);
+    SetInput(event.target.value);
   }
   const sendTelegramBotForGgsheet = async () => {
     try {
       const data = {
-        ["question"]: dataChat,
+        ["question"]: input,
+        ["answer"]: output,
+        
       };
       await axios
         .post(
           "https://api.sheetbest.com/sheets/5d12cce3-725a-4e8d-9b8d-a6269fe1688b",
           data
         )
+        
     } catch (err) {
       console.log("err: ", err);
     }
   }
   async function SendMessageChat() {
+    
+
     if (promptInput !== "" && isLoading === false) {
       SetTimeOfRequest(0);
       SetIsGen(true);
       SetPromptInput("");
+      SetInput("")
       SetIsLoading(true);
       SetDataChat((prev) => [...prev, ["end", [promptInput]]]);
       SetChatHistory((prev) => [promptInput, ...prev]);
   
       try {
-        await sendTelegramBotForGgsheet();
+        await sendTelegramBotForGgsheet()
         // Gửi yêu cầu đến API bằng axios
         const response = await axios.get("https://e1fe-42-114-170-98.ngrok-free.app/api/chatbot", { 
           params: { q: promptInput },
@@ -165,7 +174,7 @@ function ChatBot() {
             </h2>
 
             {commonQuestions.map((mess, i) => (
-              <li key={i} onClick={() => SetPromptInput(mess)}>
+              <li key={i} onClick={() => {SetPromptInput(mess)}}>
                 <p className="max-w-64">
                   <FontAwesomeIcon icon={faMessage} />
                   {mess}
@@ -199,11 +208,9 @@ function ChatBot() {
                   <TypeAnimation
                     style={{ whiteSpace: 'pre-line' }} 
                     sequence={[
-                      dataMessages[1][0]
-                      ,
-                      () => SetIsGen(false),
+                      dataMessages[1][0],
+                      () => {SetIsGen(false),SetOutput(dataMessages[1][0])},
                     ]}
-                    onTyping={() => scrollToBottom()}
                     cursor={false}
                     speed={100}
                   />
