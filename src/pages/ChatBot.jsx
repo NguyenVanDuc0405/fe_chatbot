@@ -91,12 +91,18 @@ function ChatBot() {
       try {
         await sendTelegramBotForGgsheet();
         // Gửi yêu cầu đến API bằng axios
-        const response = await axios.get("http://127.0.0.1:5000/api/chatbot", { params: { q: promptInput } }); // Sử dụng promptInput thay cho query
+        const response = await axios.get("https://e1fe-42-114-170-98.ngrok-free.app/api/chatbot", { 
+          params: { q: promptInput },
+          headers: {
+            "ngrok-skip-browser-warning": "69420", // Bỏ qua cảnh báo ngrok nếu cần
+        },
+        }); 
         // Xử lý dữ liệu phản hồi từ API
         SetDataChat((prev) => [
             ...prev,
             ["start", [response.data]], // Thay đổi theo cấu trúc dữ liệu của API
         ]);
+        
       } catch (error) {
         SetDataChat((prev) => [
           ...prev,
