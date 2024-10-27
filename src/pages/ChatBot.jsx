@@ -174,7 +174,7 @@ function ChatBot() {
             </h2>
 
             {commonQuestions.map((mess, i) => (
-              <li key={i} onClick={() => {SetPromptInput(mess)}}>
+              <li key={i} onClick={() => {SetPromptInput(mess), SetInput(mess)}}>
                 <p className="max-w-64">
                   <FontAwesomeIcon icon={faMessage} />
                   {mess}
