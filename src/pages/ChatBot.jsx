@@ -68,7 +68,7 @@ function ChatBot() {
   const sendTelegramBotForGgsheet = async () => {
     try {
       const data = {
-        ["question"]: promptInput,
+        ["question"]: dataChat,
       };
       await axios
         .post(
