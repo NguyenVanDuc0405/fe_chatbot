@@ -4,7 +4,7 @@ import { TypeAnimation } from "react-type-animation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import axios from 'axios';
-
+import ENVIRONMENT_CONFIG from '../config/env'
 function ChatBot() {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -17,12 +17,10 @@ function ChatBot() {
   const commonQuestions=[
     "Học viện có bao nhiêu loại học bổng?",
     "Các mốc thời gian quan trọng trong việc tuyển sinh?",
-    "Làm sao để kiếm người yêu khi học đại học?",
+    "Các trang web chính thức của học viện?",
     "Hồ sơ nhập học cần chuẩn bị những gì?",
-    "Các câu lạc bộ có ở học viện?",
-    "Những ngành học mới trong học viện năm 2024?",
     "Các phương thức xét tuyển của học viện?",
-    "Quy trình nộp hồ sơ trực tuyến như nào?",
+    "Những ngành học mới trong học viện năm 2024?",
     "Ngành Công nghệ thông tin xét tuyển theo tổ hợp nào?",
     "Chỉ tiêu của Ngành Công nghệ thông tin là bao nhiêu?",
     "Mã ngành của chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
@@ -34,10 +32,12 @@ function ChatBot() {
     "Điểm chuẩn ngành công nghệ thông tin theo phương thức thi thpt năm nay tại cơ sở miền bắc là bao nhiêu?",
     "Cơ sở đào tạo của học viện tại cơ sở miền bắc ở đâu?",
     "Trụ sở chính của học viện ở đâu?",
+    "Quy trình nộp hồ sơ trực tuyến như nào?",
     "Học tại học viện có nhàn không?",
     "Mình muốn đăng ký ký túc xá thì như nào?",
     "Có những kiểu đào tạo nào tại học viện?",
-    "Các trang web chính thức của học viện?",
+    "Các câu lạc bộ có ở học viện?",
+    "Làm sao để kiếm người yêu khi học đại học?",
 
   ]
   let [isLoading, SetIsLoading] = useState(false);
@@ -100,7 +100,8 @@ function ChatBot() {
       try {
         await sendTelegramBotForGgsheet()
         // Gửi yêu cầu đến API bằng axios
-        const response = await axios.get("https://e1fe-42-114-170-98.ngrok-free.app/api/chatbot", { 
+        const API_ENDPOINT = `${ENVIRONMENT_CONFIG}/api/chatbot`;
+        const response = await axios.get(API_ENDPOINT, { 
           params: { q: promptInput },
           headers: {
             "ngrok-skip-browser-warning": "69420", // Bỏ qua cảnh báo ngrok nếu cần
@@ -162,7 +163,7 @@ function ChatBot() {
       <div className="hidden lg:block  drawer-side absolute w-64 h-[50vh] mt-2 right-3 drop-shadow-md">
         <div
           className="menu p-4 w-full min-h-full bg-gray-50 text-base-content 
-        rounded-2xl mt-3  overflow-auto scroll-y-auto max-h-[43vh]
+        rounded-2xl mt-3  overflow-auto scroll-y-auto max-h-[64vh]
         scrollbar-thin scrollbar-thumb-gray-300 
           scrollbar-thumb-rounded-full scrollbar-track-rounded-full
         "
