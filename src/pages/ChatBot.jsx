@@ -3,8 +3,8 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import { TypeAnimation } from "react-type-animation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
-import axios from 'axios';
-import ENVIRONMENT_CONFIG from '../config/env'
+import axios from "axios";
+import ENVIRONMENT_CONFIG from "../config/env";
 function ChatBot() {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -14,7 +14,7 @@ function ChatBot() {
   const [output, SetOutput] = useState("");
 
   let [chatHistory, SetChatHistory] = useState([]);
-  const commonQuestions=[
+  const commonQuestions = [
     "Học viện có bao nhiêu loại học bổng?",
     "Các mốc thời gian quan trọng trong việc tuyển sinh?",
     "Các trang web chính thức của học viện?",
@@ -39,8 +39,7 @@ function ChatBot() {
     "Ngành IoT có được đào tạo ở cơ sở miền bắc không?",
     "Các câu lạc bộ có ở học viện?",
     "Làm sao để kiếm người yêu khi học đại học?",
-
-  ]
+  ];
   let [isLoading, SetIsLoading] = useState(false);
   let [isGen, SetIsGen] = useState(false);
   const [dataChat, SetDataChat] = useState([
@@ -68,52 +67,44 @@ function ChatBot() {
   const onChangeHandler = (event) => {
     SetPromptInput(event.target.value);
     SetInput(event.target.value);
-  }
-  const sendTelegramBotForGgsheet = async () => {
-    try {
-      const data = {
-        ["question"]: input,
-        ["answer"]: output,
-        
-      };
-      await axios
-        .post(
-          "https://api.sheetbest.com/sheets/5d12cce3-725a-4e8d-9b8d-a6269fe1688b",
-          data
-        )
-        
-    } catch (err) {
-      console.log("err: ", err);
-    }
-  }
-  async function SendMessageChat() {
-    
+  };
+  // const sendTelegramBotForGgsheet = async () => {
+  //   try {
+  //     const data = {
+  //       ["question"]: input,
+  //       ["answer"]: output,
 
+  //     };
+  //     await axios
+  //       .post(
+  //         "https://api.sheetbest.com/sheets/5d12cce3-725a-4e8d-9b8d-a6269fe1688b",
+  //         data
+  //       )
+
+  //   } catch (err) {
+  //     console.log("err: ", err);
+  //   }
+  // }
+  async function SendMessageChat() {
     if (promptInput !== "" && isLoading === false) {
       SetTimeOfRequest(0);
       SetIsGen(true);
       SetPromptInput("");
-      SetInput("")
+      SetInput("");
       SetIsLoading(true);
       SetDataChat((prev) => [...prev, ["end", [promptInput]]]);
       SetChatHistory((prev) => [promptInput, ...prev]);
-  
       try {
-        await sendTelegramBotForGgsheet()
+        // await sendTelegramBotForGgsheet()
         // Gửi yêu cầu đến API bằng axios
         const API_ENDPOINT = `${ENVIRONMENT_CONFIG}/api/chatbot`;
-        const response = await axios.get(API_ENDPOINT, { 
+        const response = await axios.get(API_ENDPOINT, {
           params: { q: promptInput },
           headers: {
-            "ngrok-skip-browser-warning": "69420", // Bỏ qua cảnh báo ngrok nếu cần
-        },
-        }); 
-        // Xử lý dữ liệu phản hồi từ API
-        SetDataChat((prev) => [
-            ...prev,
-            ["start", [response.data]], // Thay đổi theo cấu trúc dữ liệu của API
-        ]);
-        
+            "ngrok-skip-browser-warning": "69420",
+          },
+        });
+        SetDataChat((prev) => [...prev, ["start", [response.data]]]);
       } catch (error) {
         SetDataChat((prev) => [
           ...prev,
@@ -122,18 +113,17 @@ function ChatBot() {
       } finally {
         SetIsLoading(false);
         if (inputRef.current) {
-          inputRef.current.focus(); 
+          inputRef.current.focus();
         }
       }
     }
   }
-
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       SendMessageChat();
     }
   };
-  
+
   return (
     <div className="bg-gradient-to-r from-blue-50 to-purple-100 h-[85vh] ">
       <div className="hidden lg:block  drawer-side absolute w-64 h-[30vh] left-3 mt-2 drop-shadow-md">
@@ -176,12 +166,16 @@ function ChatBot() {
             </h2>
 
             {commonQuestions.map((mess, i) => (
-              <li key={i} onClick={() => {SetPromptInput(mess), SetInput(mess)}}>
+              <li
+                key={i}
+                onClick={() => {
+                  SetPromptInput(mess), SetInput(mess);
+                }}
+              >
                 <p className="max-w-64">
                   <FontAwesomeIcon icon={faMessage} />
                   {mess}
                   {/* {mess.length < 20 ? mess : mess.slice(0, 20) + "..."} */}
-
                 </p>
               </li>
             ))}
@@ -190,7 +184,7 @@ function ChatBot() {
       </div>
 
       <div className={"flex justify-center h-[80vh]"}>
-        <div 
+        <div
           id="chat-area"
           className="
           mt-5 text-sm 
@@ -203,15 +197,17 @@ function ChatBot() {
               <div className="chat chat-start drop-shadow-md" key={i}>
                 <div className="chat-image avatar">
                   <div className="w-10 rounded-full border-2 border-blue-500">
-                    <img className="scale-150" src="/assets/robot_image.png"/>
+                    <img className="scale-150" src="/assets/robot_image.png" />
                   </div>
                 </div>
                 <div className="chat-bubble chat-bubble-info break-words ">
                   <TypeAnimation
-                    style={{ whiteSpace: 'pre-line' }} 
+                    style={{ whiteSpace: "pre-line" }}
                     sequence={[
                       dataMessages[1][0],
-                      () => {SetIsGen(false),SetOutput(dataMessages[1][0])},
+                      () => {
+                        SetIsGen(false), SetOutput(dataMessages[1][0]);
+                      },
                     ]}
                     cursor={false}
                     speed={100}
@@ -230,7 +226,7 @@ function ChatBot() {
             <div className="chat chat-start">
               <div className="chat-image avatar">
                 <div className="w-10 rounded-full border-2 border-blue-500">
-                  <img src= "/assets/robot_image.png" />
+                  <img src="/assets/robot_image.png" />
                 </div>
               </div>
               <div className="chat-bubble chat-bubble-info">
@@ -244,7 +240,6 @@ function ChatBot() {
                 />
                 <p className="text-xs font-medium">{timeOfRequest + "/60s"}</p>
               </div>
-              
             </div>
           ) : (
             ""
@@ -261,7 +256,6 @@ function ChatBot() {
               onKeyDown={handleKeyDown}
               // disabled={isGen}
               value={promptInput}
-
             />
 
             <button
@@ -292,7 +286,6 @@ function ChatBot() {
           </div>
         </div>
       </div>
-
     </div>
   );
 }
