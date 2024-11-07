@@ -36,6 +36,7 @@ function ChatBot() {
     "Học tại học viện có nhàn không?",
     "Mình muốn đăng ký ký túc xá thì như nào?",
     "Có những kiểu đào tạo nào tại học viện?",
+    "Ngành IoT có được đào tạo ở cơ sở miền bắc không?",
     "Các câu lạc bộ có ở học viện?",
     "Làm sao để kiếm người yêu khi học đại học?",
 
