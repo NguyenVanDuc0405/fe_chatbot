@@ -102,7 +102,7 @@ function IssuePage() {
         <label
           htmlFor="my-modal"
           onClick={()=>sendMail()}
-          class=" mt-5 w-full btn btn-primary btn-md  bg-gradient-to-tl from-transparent via-blue-600 to-indigo-500"
+          className=" mt-5 w-full btn btn-primary btn-md  bg-gradient-to-tl from-transparent via-blue-600 to-indigo-500"
         >
           Gửi ý kiến
         </label>

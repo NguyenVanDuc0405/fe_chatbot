@@ -218,7 +218,7 @@ function ChatBot() {
                 </div>
               </div>
             ) : (
-              <div className="chat chat-end">
+              <div className="chat chat-end" key={i}>
                 <div className="chat-bubble shadow-xl chat-bubble-primary bg-gradient-to-r from-purple-500 to-blue-500 text-white">
                   {dataMessages[1][0]}
                 </div>

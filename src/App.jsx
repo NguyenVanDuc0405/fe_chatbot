@@ -8,7 +8,6 @@ import IssuePage from "./pages/IssuePage";
 import { BrowserRouter, Routes, Route, Link,Navigate } from "react-router-dom";
 function App() {
   useEffect(() => {}, []);
-  const [currentPage, SetCurrentPage] = useState("Home");
   return (
     <BrowserRouter>
       <div className="overflow-hidden">
