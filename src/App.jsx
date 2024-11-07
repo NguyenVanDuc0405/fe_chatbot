@@ -5,9 +5,9 @@ import HomePage from "./pages/HomePage";
 import ChatBot from "./pages/ChatBot";
 import FAQPage from "./pages/FAQPage"
 import IssuePage from "./pages/IssuePage";
-import { BrowserRouter, Routes, Route, Link,Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 function App() {
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   return (
     <BrowserRouter>
       <div className="overflow-hidden">

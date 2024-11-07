@@ -1,0 +1,16 @@
+:where(.css-dev-only-do-not-override-apn68).ant-space-gap-col-small {
+    column-gap: 4px;
+}
+
+.ant-space-item {
+    margin-top: 1px;
+}
+
+.ant-dropdown-menu-title-content:hover {
+    color: rgb(241, 6, 6);
+}
+
+.ant-dropdown-menu-title-content {
+    font-family: sans-serif;
+    margin-top: 2px;
+}
