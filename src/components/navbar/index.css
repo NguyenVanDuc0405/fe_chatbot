@@ -14,3 +14,7 @@
     font-family: sans-serif;
     margin-top: 2px;
 }
+
+.ant-menu .ant-menu-sub .ant-menu-vertical {
+    color: rgb(255, 0, 119);
+}

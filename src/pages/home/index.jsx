@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 function HomePage() {
   return (
-    <div className="flex items-center justify-center hero h-[85vh] w-full bg-gradient-to-r from-teal-100 to-blue-100">
+    <div className="flex items-center justify-center hero h-[85vh] w-full bg-gradient-to-r from-red-300 to-pink-100">
       <div className="hero-content text-center min-w-[200px] ">
         <div className="max-w-md flex-1">
           <img

@@ -4,7 +4,7 @@ import { TypeAnimation } from "react-type-animation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
-import ENVIRONMENT_CONFIG from "../config/env";
+import ENVIRONMENT_CONFIG from "../../config/env";
 function ChatBot() {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -125,7 +125,7 @@ function ChatBot() {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-50 to-purple-100 h-[85vh] ">
+    <div className="bg-gradient-to-r from-red-300 to-pink-100 h-[85vh] ">
       <div className="hidden lg:block  drawer-side absolute w-64 h-[30vh] left-3 mt-2 drop-shadow-md">
         <div className="menu p-4 w-full min-h-full bg-gray-50 text-base-content rounded-2xl mt-3  overflow-auto scroll-y-auto max-h-[80vh]">
           {/* Sidebar content here */}
