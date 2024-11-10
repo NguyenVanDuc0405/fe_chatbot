@@ -1,12 +1,11 @@
-// 2.50.0
 import { useEffect, useState } from "react";
 import NavBar from "./components/navbar";
 import HomePage from "./pages/home";
 import ChatBot from "./pages/chatbot";
 import FeedBack from "./pages/feedback";
 import Project from "./pages/project";
-import AboutRoutes from './pages/about';
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import AboutRoutes from './pages/about/AboutRoutes';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 function App() {
   useEffect(() => { }, []);
   return (

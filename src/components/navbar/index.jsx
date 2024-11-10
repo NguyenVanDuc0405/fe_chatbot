@@ -25,8 +25,12 @@ function NavBar() {
     },
     {
       key: '4',
-      label: <button onClick={() => navigate("/about/score")}>Xem điểm các năm trước</button>,
+      label: <button onClick={() => navigate("/about/score/2024")}>Xem điểm các năm trước</button>,
       children: [
+        {
+          key: '4-0',
+          label: <button onClick={() => navigate("/about/score/2024")}>Điểm trúng tuyển 2024</button>,
+        },
         {
           key: '4-1',
           label: <button onClick={() => navigate("/about/score/2023")}>Điểm trúng tuyển 2023</button>,
@@ -76,23 +80,27 @@ function NavBar() {
         },
         {
           key: '4',
-          label: 'Xem điểm các năm trước',
+          label: <button>Xem điểm các năm trước</button>,
           children: [
             {
+              key: '4-0',
+              label: <button onClick={() => navigate("/about/score/2024")}>Điểm 2024</button>,
+            },
+            {
               key: '4-1',
-              label: 'Điểm 2023',
+              label: <button onClick={() => navigate("/about/score/2023")}>Điểm 2023</button>,
             },
             {
               key: '4-2',
-              label: 'Điểm 2022',
+              label: <button onClick={() => navigate("/about/score/2022")}>Điểm 2022</button>,
             },
             {
               key: '4-3',
-              label: 'Điểm 2021',
+              label: <button onClick={() => navigate("/about/score/2021")}>Điểm 2021</button>,
             },
             {
               key: '4-4',
-              label: 'Điểm 2020',
+              label: <button onClick={() => navigate("/about/score/2020")}>Điểm 2020</button>,
             },
           ],
         },
