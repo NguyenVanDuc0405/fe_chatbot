@@ -5,7 +5,7 @@ import HomePage from "./pages/home";
 import ChatBot from "./pages/chatbot";
 import FeedBack from "./pages/feedback";
 import Project from "./pages/project";
-import AboutRoutes from './pages/about/AboutRoutes';
+import AboutRoutes from './pages/about/AboutRoutes.jsx';
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 function App() {
   useEffect(() => { }, []);
