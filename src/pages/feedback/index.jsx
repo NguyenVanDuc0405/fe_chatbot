@@ -15,10 +15,10 @@ function IssuePage() {
   function sendMail() {
     if (message.trim() === "") {
       setMessageError("Phản hồi không được để trống.");
-      setIsModalOpen(false); 
-      return; 
+      setIsModalOpen(false);
+      return;
     } else {
-      setMessageError(""); 
+      setMessageError("");
       setIsModalOpen(false)
     }
     if (!validateEmail(email)) {
@@ -27,13 +27,13 @@ function IssuePage() {
       return;
     } else {
       setIsModalOpen(false)
-      setEmailError(""); 
+      setEmailError("");
     }
 
-    
+
     const templateParams = {
-      from_name: email, 
-      message: message, 
+      from_name: email,
+      message: message,
     };
     emailjs
       .send(
@@ -48,7 +48,7 @@ function IssuePage() {
         },
         function (error) {
           console.log("FAILED...", error);
-         
+
         }
       );
     setIsModalOpen(true)
@@ -56,12 +56,12 @@ function IssuePage() {
     setMessage("");
   }
 
-  
+
 
   return (
-    <div className="flex  justify-center h-[85vh] bg-gradient-to-br from-blue-100 to-purple-100">
+    <div className="flex  justify-center h-[85vh] bg-gradient-to-br from-red-300 to-pink-100">
       <input type="checkbox" id="my-modal" className="modal-toggle" />
-       {isModalOpen &&<div className="modal">
+      {isModalOpen && <div className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Gửi thành công 🥳</h3>
           <p className="py-4">
@@ -92,16 +92,16 @@ function IssuePage() {
           value={message}
         ></textarea>
         {messageError && <p className="text-red-500">{messageError}</p>}
-        <input type="text" 
-          placeholder="Email của bạn" 
-          className="input w-full max-w-xs mt-4"   
+        <input type="text"
+          placeholder="Email của bạn"
+          className="input w-full max-w-xs mt-4"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
         {emailError && <p className="text-red-500">{emailError}</p>}
         <label
           htmlFor="my-modal"
-          onClick={()=>sendMail()}
+          onClick={() => sendMail()}
           className=" mt-5 w-full btn btn-primary btn-md  bg-gradient-to-tl from-transparent via-blue-600 to-indigo-500"
         >
           Gửi ý kiến

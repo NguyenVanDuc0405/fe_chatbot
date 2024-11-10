@@ -1,7 +1,7 @@
-import Score2023 from './Score2023';
-import Score2022 from './Score2022';
-import Score2021 from './Score2021';
-import Score2020 from './Score2020';
+import Score2023 from './2023';
+import Score2022 from './2022';
+import Score2021 from './2021';
+import Score2020 from './2020';
 
 const scoreRoutes = [
     { path: '2023', element: <Score2023 /> },
