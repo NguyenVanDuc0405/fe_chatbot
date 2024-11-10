@@ -1,7 +1,7 @@
-import Overview from './overview';
-import Scholarship from './scholarship';
-import FAQs from './faqs';
-import scoreRoutes from '../about/score/ScoreRoutes';
+import Overview from '../overview';
+import Scholarship from '../scholarship';
+import FAQs from '../faqs';
+import scoreRoutes from '../score/ScoreRoutes';
 
 const aboutRoutes = [
     { path: 'overview', element: <Overview /> },
