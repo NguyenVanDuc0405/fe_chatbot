@@ -1,36 +1,35 @@
 import emailjs from "@emailjs/browser";
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Button, Space, Modal } from 'antd';
+import ENVIRONMENT_CONFIG from "../../config/env";
+import axios from "axios";
+
+const SubmitButton = ({ form, children }) => {
+  const [submittable, setSubmittable] = React.useState(false);
+  const values = Form.useWatch([], form);
+  useEffect(() => {
+    form
+      .validateFields({
+        validateOnly: true,
+      })
+      .then(() => setSubmittable(true))
+      .catch(() => setSubmittable(false));
+  }, [form, values]);
+  return (
+    <Button type="primary" htmlType="submit" disabled={!submittable}>
+      {children}
+    </Button>
+  );
+};
 function IssuePage() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [messageError, setMessageError] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  function validateEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  }
-
+  useEffect(() => {
+    if (email && message) {
+      sendMail();
+    }
+  }, [email, message]);
   function sendMail() {
-    if (message.trim() === "") {
-      setMessageError("Phản hồi không được để trống.");
-      setIsModalOpen(false);
-      return;
-    } else {
-      setMessageError("");
-      setIsModalOpen(false)
-    }
-    if (!validateEmail(email)) {
-      setEmailError("Vui lòng nhập địa chỉ email hợp lệ.");
-      setIsModalOpen(false)
-      return;
-    } else {
-      setIsModalOpen(false)
-      setEmailError("");
-    }
-
-
     const templateParams = {
       from_name: email,
       message: message,
@@ -51,61 +50,90 @@ function IssuePage() {
 
         }
       );
-    setIsModalOpen(true)
     setEmail("");
     setMessage("");
   }
 
+  const [form] = Form.useForm();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const onFinish = async (values) => {
+    setEmail(values.email);
+    setMessage(values.feedback);
+    setIsModalVisible(true);
+    try {
+      const API_ENDPOINT_FB = `${ENVIRONMENT_CONFIG}/api/save_feedback`
+      const response = await axios.post(API_ENDPOINT_FB, {
+        email: values.email,
+        message: values.feedback
+      });
 
-
-  return (
-    <div className="flex  justify-center h-[85vh] bg-gradient-to-br from-red-300 to-pink-100">
-      <input type="checkbox" id="my-modal" className="modal-toggle" />
-      {isModalOpen && <div className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Gửi thành công 🥳</h3>
-          <p className="py-4">
-            Cảm ơn bạn đã gửi góp ý / báo lỗi 🤗. Chúng tôi sẽ xem xét những ý
-            kiến của người dùng để ngày càng hoàn thiện sản phẩm hơn nhé!
-          </p>
-          <div className="modal-action">
-            <label htmlFor="my-modal" className="btn btn-success">
-              Đóng
-            </label>
-          </div>
-        </div>
-      </div>
+      if (response.data.success) {
+        console.log("Feedback saved successfully:", response.data.feedback_id);
       }
-      <div className="md:w-[50%]">
-        <h1 className="text-3xl text-center font-bold p-5 bg-[linear-gradient(90deg,hsl(var(--s))_0%,hsl(var(--sf))_9%,hsl(var(--pf))_42%,hsl(var(--p))_47%,hsl(var(--a))_100%)] bg-clip-text will-change-auto [-webkit-text-fill-color:transparent] [transform:translate3d(0,0,0)] motion-reduce:!tracking-normal max-[1280px]:!tracking-normal [@supports(color:oklch(0_0_0))]:bg-[linear-gradient(90deg,hsl(var(--s))_4%,color-mix(in_oklch,hsl(var(--sf)),hsl(var(--pf)))_22%,hsl(var(--p))_45%,color-mix(in_oklch,hsl(var(--p)),hsl(var(--a)))_67%,hsl(var(--a))_100.2%)]">
-          Góp ý hoặc báo lỗi
-        </h1>
-        <p className="text-justify font-semibold text-sm pr-2 pl-2">
-          Sự đóng góp ý kiến từ các bạn sẽ là sự hỗ trợ đắc lực giúp chúng tôi
-          ngày càng tốt hoàn thiện sản phẩm hơn.
-        </p>
+    } catch (error) {
+      console.error("Error saving feedback:", error);
+    }
+  };
 
-        <textarea
-          placeholder="Nhập phản hồi của bạn tại đây!"
-          className="mt-5 h-[30%] textarea textarea-bordered textarea-md w-full "
-          onChange={(e) => setMessage(e.target.value)}
-          value={message}
-        ></textarea>
-        {messageError && <p className="text-red-500">{messageError}</p>}
-        <input type="text"
-          placeholder="Email của bạn"
-          className="input w-full max-w-xs mt-4"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-        {emailError && <p className="text-red-500">{emailError}</p>}
-        <label
-          htmlFor="my-modal"
-          onClick={() => sendMail()}
-          className=" mt-5 w-full btn btn-primary btn-md  bg-gradient-to-tl from-transparent via-blue-600 to-indigo-500"
-        >
-          Gửi ý kiến
-        </label>
+  const handleOk = () => {
+    setIsModalVisible(false);
+    form.resetFields();
+  };
+  return (
+    <div className="h-screen">
+      <div className="flex h-full justify-center bg-gradient-to-br from-red-100 to-white">
+        <div className="md:w-[50%] mt-10">
+          <h1 className="text-2xl lg:text-4xl md:text-3xl  text-center font-bold p-5 text-black">
+            Phản hồi
+          </h1>
+          <p className="text-justify font-semibold text-sm lg:text-lg mb-10 px-2">
+            Cảm ơn các bạn đã chia sẻ ý kiến. Những phản hồi của các bạn sẽ giúp chúng tôi cải thiện sản phẩm, mang đến trải nghiệm tốt hơn cho người dùng trong tương lai.
+          </p>
+          <Form form={form} name="validateOnly" layout="vertical" autoComplete="off" onFinish={onFinish}>
+            <Form.Item
+              name="email"
+              label="Email"
+              rules={[
+                {
+                  required: true,
+                  message: 'Email là bắt buộc!',
+                },
+                {
+                  type: 'email',
+                  message: 'Vui lòng nhập một email hợp lệ!',
+                },
+              ]}
+            >
+              <Input style={{ height: '40px' }} />
+            </Form.Item>
+            <Form.Item
+              name="feedback"
+              label="Phản hồi"
+              rules={[
+                {
+                  required: true,
+                  message: 'Phản hồi không được để trống!',
+                },
+              ]}
+            >
+              <Input.TextArea style={{ height: '100px' }} />
+            </Form.Item>
+            <Form.Item style={{ marginTop: "40px" }}>
+              <Space>
+                <SubmitButton form={form}>Gửi phản hồi</SubmitButton>
+                <Button htmlType="reset">Làm mới</Button>
+              </Space>
+            </Form.Item>
+          </Form>
+          <Modal
+            title="Phản hồi đã được gửi thành công!"
+            open={isModalVisible}
+            onOk={handleOk}
+            onCancel={() => setIsModalVisible(false)}
+          >
+            <p>Những phản hồi của các bạn sẽ giúp chúng tôi cải thiện sản phẩm, mang đến trải nghiệm tốt hơn cho người dùng trong tương lai. Cảm ơn bạn! 💖</p>
+          </Modal>
+        </div>
       </div>
     </div>
   );

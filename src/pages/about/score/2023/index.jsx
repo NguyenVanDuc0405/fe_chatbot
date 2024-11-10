@@ -26,7 +26,7 @@ function Score2023() {
     ];
 
     return (
-        <div className="min-h-[100vh] h-auto w-full bg-gradient-to-br from-red-300 to-pink-100">
+        <div className="min-h-[100vh] h-auto w-full bg-gradient-to-br from-red-100 to-white">
             <div className="w-full">
                 <div className='relative' >
                     <img src="/assets/about_bg.png" className='w-full' />

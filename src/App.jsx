@@ -10,7 +10,7 @@ function App() {
   useEffect(() => { }, []);
   return (
     <BrowserRouter>
-      <div className="overflow-hidden">
+      <div className="overflow-hidden min-h-full">
         <NavBar />
         <div className="mt-20"></div>
         <Routes>

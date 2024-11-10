@@ -25,7 +25,7 @@ function Score2020() {
         { stt: 17, tenNganh: 'Công nghệ tài chính', maNganh: '7340205', toHop: 'A00, A01, D01', diemThi: 'X', xtkh: 'X', dgnl: 'X' },
     ];
     return (
-        <div className="min-h-[100vh] h-auto w-full bg-gradient-to-br from-red-300 to-pink-100">
+        <div className="min-h-[100vh] h-auto w-full bg-gradient-to-br from-red-100 to-white">
             <div className="w-full">
                 <div className='relative' >
                     <img src="/assets/about_bg.png" className='w-full' />
