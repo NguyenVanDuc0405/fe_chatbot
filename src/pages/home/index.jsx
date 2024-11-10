@@ -17,7 +17,7 @@ function HomePage() {
             và chính xác nhất!
           </p>
           <Link to="/chat">
-            <button className="btn btn-info hover:scale-110">Bắt đầu ngay</button>
+            <button className="btn btn-info hover:scale-110">Bắt đầu ngay </button>
           </Link>
         </div>
       </div>
