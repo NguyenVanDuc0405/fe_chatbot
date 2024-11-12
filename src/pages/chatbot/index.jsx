@@ -54,7 +54,7 @@ function ChatBot() {
     [
       "start",
       [
-        "Chào bạn! Tôi là PTIT chatbot, một trợ lý ảo được thiết kế để giúp bạn giải đáp thắc mắc và cung cấp thông tin hữu ích về việc tuyển sinh tại Học Viện. Bạn cần tôi hỗ trợ điều gì hôm nay? 😄",
+        "Chào bạn! Tôi là PTIT chatbot 🤖🤖🤖, một trợ lý ảo được thiết kế để giúp bạn giải đáp thắc mắc và cung cấp thông tin hữu ích về việc tuyển sinh tại Học Viện. Tôi có thể giúp gì cho bạn!💖💖💖",
         null,
       ],
     ],
