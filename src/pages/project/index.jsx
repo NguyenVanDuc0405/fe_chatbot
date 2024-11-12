@@ -40,7 +40,7 @@ function Project() {
       </div>
       <div className='w-full flex justify-center mt-20 pb-20'>
         <div className="w-[20%] mx-4 text-black h-full hidden md:flex">
-          <div className="max-h-[420px] w-[90%] overflow-y-auto p-4 bg-[#e8eaed] shadow-md rounded-lg">
+          <div className="max-h-[420px] w-[90%] overflow-y-auto p-4 shadow-md rounded-xl">
             <h2 className="font-semibold mb-6 text-2xl">Mục lục</h2>
             <ul className="space-y-2 ">
               <li><button onClick={() => scrollToSection('section-i')} className="hover:underline hover:text-red-500 text-left">I. THÔNG TIN CHUNG</button></li>

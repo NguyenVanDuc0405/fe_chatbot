@@ -2,23 +2,20 @@ import { Link } from "react-router-dom";
 function HomePage() {
   return (
     <div className="h-screen">
-      <div className="flex items-center justify-center hero h-full w-full bg-gradient-to-r from-red-300 to-pink-100">
-        <div className="hero-content text-center min-w-[200px] ">
-          <div className="max-w-md flex-1">
+      <div className="flex items-center justify-center h-full w-full bg-gradient-to-r from-red-300 to-pink-100">
+        <div className="text-center -mt-40">
+          <div className="max-w-xl">
             <img
-              className="block w-[200px] h-auto mx-auto"
-              src="assets/robot_image.png"
+              className="w-[250px] mx-auto hover:scale-110"
+              src="assets/chatbot_image_1.jpg"
             ></img>
-            <h1 className="text-2xl lg:text-5xl font-bold [&::selection]:text-base-content brightness-100 contrast-150 [&::selection]:bg-blue-950 ">Xin chào! Mình là</h1>
-            <h1 className="text-3xl lg:text-5xl font-bold bg-[linear-gradient(90deg,hsl(var(--s))_0%,hsl(var(--sf))_9%,hsl(var(--pf))_42%,hsl(var(--p))_47%,hsl(var(--a))_100%)] bg-clip-text will-change-auto [-webkit-text-fill-color:transparent] [transform:translate3d(0,0,0)] motion-reduce:!tracking-normal max-[1280px]:!tracking-normal [@supports(color:oklch(0_0_0))]:bg-[linear-gradient(90deg,hsl(var(--s))_4%,color-mix(in_oklch,hsl(var(--sf)),hsl(var(--pf)))_22%,hsl(var(--p))_45%,color-mix(in_oklch,hsl(var(--p)),hsl(var(--a)))_67%,hsl(var(--a))_100.2%)]">
-              PTIT Chatbot
-            </h1>
+            <h1 className="text-2xl lg:text-5xl font-bold">Chào mừng bạn đến với PTIT Chatbot</h1>
             <p className="py-6 font-semibold lg:text-lg text-sm">
-              Giúp bạn giải đáp thắc mắc, tra cứu thông tin một cách nhanh chóng
+              Giúp bạn giải đáp thắc mắc, tra cứu thông tin về tuyển sinh PTIT một cách nhanh chóng, hiệu quả
               và chính xác nhất!
             </p>
             <Link to="/chat">
-              <button className="btn btn-info hover:scale-110">Bắt đầu ngay </button>
+              <button className="btn btn-info hover:scale-110 bg-cyan-300">Bắt đầu chat</button>
             </Link>
           </div>
         </div>

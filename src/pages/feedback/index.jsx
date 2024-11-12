@@ -82,7 +82,7 @@ function IssuePage() {
   return (
     <div className="h-screen">
       <div className="flex h-full justify-center bg-gradient-to-br from-red-100 to-white">
-        <div className="md:w-[50%] mt-10">
+        <div className="md:w-[50%] mt-10 mx-10">
           <h1 className="text-2xl lg:text-4xl md:text-3xl  text-center font-bold p-5 text-black">
             Phản hồi
           </h1>
@@ -104,7 +104,7 @@ function IssuePage() {
                 },
               ]}
             >
-              <Input style={{ height: '40px' }} />
+              <Input style={{ height: '40px', width: "50%" }} />
             </Form.Item>
             <Form.Item
               name="feedback"
