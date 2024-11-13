@@ -21,7 +21,33 @@ function ChatBot() {
   const [output, SetOutput] = useState("");
 
   const [isOpenHistory, setIsOpenHistory] = useState(true);
-  let [chatHistory, SetChatHistory] = useState([]);
+  let [chatHistory, SetChatHistory] = useState(["Học viện có bao nhiêu loại học bổng?",
+    "Các mốc thời gian quan trọng trong việc tuyển sinh?",
+    "Các trang web chính thức của học viện?",
+    "Hồ sơ nhập học cần chuẩn bị những gì?",
+    "Các phương thức xét tuyển của học viện?",
+    "Những ngành học mới trong học viện năm 2024?",
+    "Ngành Công nghệ thông tin xét tuyển theo tổ hợp nào?",
+    "Chỉ tiêu của Ngành Công nghệ thông tin là bao nhiêu?",
+    "Mã ngành của chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
+    "Thời gian đào tạo của ngành Công nghệ thông tin là bao lâu?",
+    "Ngành Công nghệ Internet vạn vật (IoT) được đào tạo ở cơ sở nào?",
+    "Học phí của Chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
+    "Học viện đào tạo những ngành nào ở cơ sở miền bắc?",
+    "Điểm chuẩn tất cả các ngành năm nay?", "Học viện có bao nhiêu loại học bổng?",
+    "Các mốc thời gian quan trọng trong việc tuyển sinh?",
+    "Các trang web chính thức của học viện?",
+    "Hồ sơ nhập học cần chuẩn bị những gì?",
+    "Các phương thức xét tuyển của học viện?",
+    "Những ngành học mới trong học viện năm 2024?",
+    "Ngành Công nghệ thông tin xét tuyển theo tổ hợp nào?",
+    "Chỉ tiêu của Ngành Công nghệ thông tin là bao nhiêu?",
+    "Mã ngành của chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
+    "Thời gian đào tạo của ngành Công nghệ thông tin là bao lâu?",
+    "Ngành Công nghệ Internet vạn vật (IoT) được đào tạo ở cơ sở nào?",
+    "Học phí của Chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
+    "Học viện đào tạo những ngành nào ở cơ sở miền bắc?",
+    "Điểm chuẩn tất cả các ngành năm nay?",]);
   const hintQuestions = [
     "Học viện có bao nhiêu loại học bổng?",
     "Các mốc thời gian quan trọng trong việc tuyển sinh?",
@@ -135,7 +161,7 @@ function ChatBot() {
   return (
     <div className="bg-gradient-to-r h-[89vh] w-full relative">
       <div className="hidden lg:block absolute w-64 h-[89vh]">
-        <div className="absolute top-1 pt-4 left-0 bg-gray-50 p-2 w-1/5 z-40" >
+        <div className={`absolute top-1 pt-4 left-0 bg-gray-50 p-2 w-full z-40 transition-transform duration-300 ease-in-out transform ${isOpenHistory ? "translate-x-0" : "-translate-x-full"}`} >
           <button
             onClick={() => setIsOpenHistory(!isOpenHistory)}
           >
@@ -146,7 +172,7 @@ function ChatBot() {
           </button>
         </div>
         {!isOpenHistory && (
-          <div className="absolute top-1 pt-4 left-0 bg-white p-2 w-1/5 z-40" >
+          <div className={`absolute top-1 pt-4 left-0 bg-white p-2 w-full z-40 transition-transform duration-300 ease-in-out transform ${!isOpenHistory ? "translate-x-0" : "-translate-x-full"}`} >
             <button
               onClick={() => setIsOpenHistory(true)}
             >
@@ -158,7 +184,7 @@ function ChatBot() {
           </div>
         )}
         <div
-          className={`relative w-full h-full bg-gray-50 overflow-auto pl-4 pt-16 transition-transform duration-300 ease-in-out transform ${isOpenHistory ? "translate-x-0" : "-translate-x-full"}`}
+          className={`relative w-full h-full overflow-auto scrollbar-none bg-gray-50 pl-4 pt-16 transition-transform duration-300 ease-in-out transform ${isOpenHistory ? "translate-x-0" : "-translate-x-full"}`}
         >
           <div>
             <ul className="menu text-sm">
@@ -181,7 +207,7 @@ function ChatBot() {
         </div>
       </div>
       <div className="hidden lg:block absolute w-64 h-[89vh] right-0">
-        <div className="w-full h-full bg-gray-50 rounded-2xl overflow-auto scroll-y-auto pt-10 pl-4">
+        <div className="w-full h-full bg-gray-50 rounded-2xl overflow-auto scrollbar-none pt-10 pl-4">
           <h2 className="font-bold mb-2">
             Những câu hỏi phổ biến
           </h2>
@@ -205,7 +231,8 @@ function ChatBot() {
       <div className="flex justify-center h-full ">
         <div
           id="chat-area"
-          className="text-sm bg-white rounded-xl border-2 md:w-[50%] w-full h-full p-2 overflow-auto scroll-y-auto pb-20"
+          className={`text-sm bg-white rounded-xl border-2 h-full p-2 overflow-auto scroll-y-auto pb-20 transition-width
+            ${isOpenHistory ? " w-1/2" : " w-2/3"} `}
         >
           {dataChat.map((dataMessages, i) =>
             dataMessages[0] === "start" ? (
@@ -262,7 +289,8 @@ function ChatBot() {
           <div ref={messagesEndRef} />
 
         </div>
-        <div className="absolute bottom-0 md:w-[50%] flex flex-col items-center bg-white">
+        <div className={`absolute bottom-0 flex flex-col items-center bg-white
+          transition-width ${isOpenHistory ? " w-1/2" : " w-2/3"} `}>
           <div className="flex w-full items-center shadow-xl border-2 rounded-2xl overflow-hidden h-12 p-2">
             <input
               type="text"

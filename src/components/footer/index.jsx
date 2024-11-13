@@ -84,11 +84,11 @@ const Footer = () => {
 
         <div className="lg:pl-10">
           <h3 className="md:text-xl text-lg font-semibold text-red-500 mb-4">VỀ CHÚNG TÔI</h3>
-          <p className="text-lg mb-1 hover:underline cursor-pointer hover:text-red-500">Trang chủ</p>
-          <p className="text-lg mb-1 mt-2 hover:underline cursor-pointer hover:text-red-500">Giới thiệu</p>
-          <p className="text-lg mb-1 mt-2 hover:underline cursor-pointer hover:text-red-500">Thông báo</p>
-          <p className="text-lg mb-1 mt-2 hover:underline cursor-pointer hover:text-red-500">Đề án tuyển sinh</p>
-          <p className="text-lg mb-1 mt-2 hover:underline cursor-pointer hover:text-red-500">Tra cứu tuyển sinh</p>
+          <a href="/home" className="text-lg mb-1 mt-2 inline-block hover:underline cursor-pointer hover:text-red-500">Trang chủ</a> <br />
+          <a href="/about/overview" className="text-lg mb-1 mt-2 inline-block hover:underline cursor-pointer hover:text-red-500">Giới thiệu</a> <br />
+          <a href="/project" className="text-lg mb-1 mt-2 inline-block hover:underline cursor-pointer hover:text-red-500">Đề án tuyển sinh</a> <br />
+          <a href="/chat" className="text-lg mb-1 mt-2 inline-block hover:underline cursor-pointer hover:text-red-500">Chatbot</a> <br />
+          <a href="/feedback" className="text-lg mb-1 mt-2 inline-block hover:underline cursor-pointer hover:text-red-500">Phản hồi</a> <br />
         </div>
       </div>
       <div className="text-center text-gray-500 mt-8">
