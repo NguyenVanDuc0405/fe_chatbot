@@ -38,7 +38,7 @@ function Project() {
           </div>
         </div>
       </div>
-      <div className='w-full flex justify-center mt-20 pb-20'>
+      <div className='w-full flex justify-center mt-20 pb-20 text-justify'>
         <div className="w-[20%] mx-4 text-black h-full hidden md:flex">
           <div className="max-h-[410px] w-[90%] overflow-y-auto scrollbar-none p-4 shadow-md rounded-xl">
             <h2 className="font-semibold mb-6 text-2xl">Mục lục</h2>
