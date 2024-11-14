@@ -21,33 +21,7 @@ function ChatBot() {
   const [output, SetOutput] = useState("");
 
   const [isOpenHistory, setIsOpenHistory] = useState(true);
-  let [chatHistory, SetChatHistory] = useState(["Học viện có bao nhiêu loại học bổng?",
-    "Các mốc thời gian quan trọng trong việc tuyển sinh?",
-    "Các trang web chính thức của học viện?",
-    "Hồ sơ nhập học cần chuẩn bị những gì?",
-    "Các phương thức xét tuyển của học viện?",
-    "Những ngành học mới trong học viện năm 2024?",
-    "Ngành Công nghệ thông tin xét tuyển theo tổ hợp nào?",
-    "Chỉ tiêu của Ngành Công nghệ thông tin là bao nhiêu?",
-    "Mã ngành của chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
-    "Thời gian đào tạo của ngành Công nghệ thông tin là bao lâu?",
-    "Ngành Công nghệ Internet vạn vật (IoT) được đào tạo ở cơ sở nào?",
-    "Học phí của Chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
-    "Học viện đào tạo những ngành nào ở cơ sở miền bắc?",
-    "Điểm chuẩn tất cả các ngành năm nay?", "Học viện có bao nhiêu loại học bổng?",
-    "Các mốc thời gian quan trọng trong việc tuyển sinh?",
-    "Các trang web chính thức của học viện?",
-    "Hồ sơ nhập học cần chuẩn bị những gì?",
-    "Các phương thức xét tuyển của học viện?",
-    "Những ngành học mới trong học viện năm 2024?",
-    "Ngành Công nghệ thông tin xét tuyển theo tổ hợp nào?",
-    "Chỉ tiêu của Ngành Công nghệ thông tin là bao nhiêu?",
-    "Mã ngành của chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
-    "Thời gian đào tạo của ngành Công nghệ thông tin là bao lâu?",
-    "Ngành Công nghệ Internet vạn vật (IoT) được đào tạo ở cơ sở nào?",
-    "Học phí của Chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
-    "Học viện đào tạo những ngành nào ở cơ sở miền bắc?",
-    "Điểm chuẩn tất cả các ngành năm nay?",]);
+  let [chatHistory, SetChatHistory] = useState([]);
   const hintQuestions = [
     "Học viện có bao nhiêu loại học bổng?",
     "Các mốc thời gian quan trọng trong việc tuyển sinh?",
