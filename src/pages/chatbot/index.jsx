@@ -30,14 +30,17 @@ function ChatBot() {
     "Các phương thức xét tuyển của học viện?",
     "Những ngành học mới trong học viện năm 2024?",
     "Ngành Công nghệ thông tin xét tuyển theo tổ hợp nào?",
-    "Chỉ tiêu của Ngành Công nghệ thông tin là bao nhiêu?",
-    "Mã ngành của chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
-    "Thời gian đào tạo của ngành Công nghệ thông tin là bao lâu?",
+    "Điểm chuẩn tất cả các ngành năm nay?",
+    "Điểm chuẩn tất cả các ngành năm 2023?",
+    "Điểm chuẩn tất cả các ngành năm 2022?",
+    "Điểm chuẩn tất cả các ngành năm 2021?",
     "Ngành Công nghệ Internet vạn vật (IoT) được đào tạo ở cơ sở nào?",
     "Học phí của Chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
     "Học viện đào tạo những ngành nào ở cơ sở miền bắc?",
-    "Điểm chuẩn tất cả các ngành năm nay?",
     "Điểm chuẩn ngành công nghệ thông tin theo phương thức thi thpt năm nay tại cơ sở miền bắc là bao nhiêu?",
+    "Chỉ tiêu của Ngành Công nghệ thông tin là bao nhiêu?",
+    "Mã ngành của chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
+    "Thời gian đào tạo của ngành Công nghệ thông tin là bao lâu?",
     "Cơ sở đào tạo của học viện tại cơ sở miền bắc ở đâu?",
     "Trụ sở chính của học viện ở đâu?",
     "Quy trình nộp hồ sơ trực tuyến như nào?",
@@ -62,6 +65,9 @@ function ChatBot() {
   useEffect(() => {
     ScrollToEndChat();
   }, [isGen]);
+  useEffect(() => {
+    ScrollToEndChat();
+  }, []);
   useEffect(() => {
     const interval = setInterval(() => {
       SetTimeOfRequest((timeOfRequest) => timeOfRequest + 1);
@@ -205,7 +211,7 @@ function ChatBot() {
       <div className="flex justify-center h-full ">
         <div
           id="chat-area"
-          className={`text-sm bg-white rounded-xl border-2 h-full p-2 overflow-auto scroll-y-auto pb-20 transition-width
+          className={`text-sm bg-white rounded-xl border-2 h-full p-2 scrollbar-none overflow-auto scroll-y-auto pb-20 transition-width
             ${isOpenHistory ? " w-1/2" : " w-2/3"} `}
         >
           {dataChat.map((dataMessages, i) =>
