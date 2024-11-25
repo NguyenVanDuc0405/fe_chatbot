@@ -140,7 +140,7 @@ function ChatBot() {
 
   return (
     <div className="bg-gradient-to-r h-[89vh] w-full relative">
-      <div className="hidden lg:block absolute w-64 h-[89vh]">
+      <div className="hidden lg:block absolute lg:w-64 lg:h-[89vh] w-0 h-0">
         <div className={`absolute top-1 pt-4 left-0 bg-gray-50 p-2 w-full z-40 transition-transform duration-300 ease-in-out transform ${isOpenHistory ? "translate-x-0" : "-translate-x-full"}`} >
           <button
             onClick={() => setIsOpenHistory(!isOpenHistory)}
@@ -186,7 +186,7 @@ function ChatBot() {
           </div>
         </div>
       </div>
-      <div className="hidden lg:block absolute w-64 h-[89vh] right-0">
+      <div className="hidden lg:block absolute lg:w-64 lg:h-[89vh] w-0 h-0 right-0">
         <div className="w-full h-full bg-gray-50 rounded-2xl overflow-auto scrollbar-none pt-10 pl-4">
           <h2 className="font-bold mb-2">
             Những câu hỏi phổ biến
@@ -208,11 +208,11 @@ function ChatBot() {
           </ul>
         </div>
       </div>
-      <div className="flex justify-center h-full ">
+      <div className="flex justify-center h-full w-full">
         <div
           id="chat-area"
           className={`text-sm bg-white rounded-xl border-2 h-full p-2 scrollbar-none overflow-auto scroll-y-auto pb-20 transition-width
-            ${isOpenHistory ? " w-1/2" : " w-2/3"} `}
+             w-11/12 ${isOpenHistory ? "lg:w-1/2" : "lg:w-2/3"}`}
         >
           {dataChat.map((dataMessages, i) =>
             dataMessages[0] === "start" ? (
@@ -270,7 +270,7 @@ function ChatBot() {
 
         </div>
         <div className={`absolute bottom-0 flex flex-col items-center bg-white
-          transition-width ${isOpenHistory ? " w-1/2" : " w-2/3"} `}>
+          transition-width w-11/12 ${isOpenHistory ? "lg:w-1/2" : "lg:w-2/3"} `}>
           <div className="flex w-full items-center shadow-xl border-2 rounded-2xl overflow-hidden h-12 p-2">
             <input
               type="text"
