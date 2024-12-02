@@ -41,7 +41,7 @@ function FAQPage() {
           <div className="md:w-[80%]">
             <h1 className="lg:text-3xl text-2xl text-center font-bold p-5 text-black">Những câu hỏi thường gặp</h1>
             {
-              data.map((item, i) => <div onClick={() => handleClick(i)} key={i} className="mt-2 collapse collapse-plus shadow-md rounded-xl bg-white hover:scale-105">
+              data.map((item, i) => <div onClick={() => handleClick(i)} key={i} className="mt-2 collapse collapse-plus shadow-md rounded-xl bg-white hover:border-red-400 border-[1px]">
                 <input type="checkbox"
                   checked={activeIndex === i}
                   onChange={() => handleClick(i)}

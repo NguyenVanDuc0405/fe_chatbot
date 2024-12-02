@@ -43,10 +43,10 @@ function NavBar() {
           key: '4-3',
           label: <button onClick={() => navigate("/about/score/2021")}>Điểm trúng tuyển 2021</button>,
         },
-        {
-          key: '4-4',
-          label: <button onClick={() => navigate("/about/score/2020")}>Điểm trúng tuyển 2020</button>,
-        },
+        // {
+        //   key: '4-4',
+        //   label: <button onClick={() => navigate("/about/score/2020")}>Điểm trúng tuyển 2020</button>,
+        // },
       ],
     },
 
@@ -98,10 +98,10 @@ function NavBar() {
               key: '4-3',
               label: <button onClick={() => navigate("/about/score/2021")}>Điểm 2021</button>,
             },
-            {
-              key: '4-4',
-              label: <button onClick={() => navigate("/about/score/2020")}>Điểm 2020</button>,
-            },
+            // {
+            //   key: '4-4',
+            //   label: <button onClick={() => navigate("/about/score/2020")}>Điểm 2020</button>,
+            // },
           ],
         },
 
