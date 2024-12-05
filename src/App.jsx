@@ -6,6 +6,8 @@ import FeedBack from "./pages/feedback";
 import Project from "./pages/project";
 import AboutRoutes from './pages/about/AboutRoutes';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
+
 function App() {
   return (
     <BrowserRouter>
@@ -37,6 +39,7 @@ function App() {
         <Route path="feedback" element={<FeedBack />} />
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
+      <ScrollToTop />
     </BrowserRouter>
   );
 }
