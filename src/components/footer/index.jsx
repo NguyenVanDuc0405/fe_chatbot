@@ -92,7 +92,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="text-center text-gray-500 mt-8">
-        © 2024 Học viện Công nghệ Bưu chính Viễn thông. All rights reserved.
+        © Copyright 2024 HocVienCongNgheBuuChinhVienThong, All rights reserved ® Học viện Công nghệ Bưu chính Viễn thông giữ bản quyền nội dung trên website này
       </div>
     </footer>
   );
