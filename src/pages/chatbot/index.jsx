@@ -15,13 +15,15 @@ import "./index.css"
 function ChatBot() {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
-  const [timeOfRequest, SetTimeOfRequest] = useState(0);
-  let [promptInput, SetPromptInput] = useState("");
-  const [input, SetInput] = useState("");
-  const [output, SetOutput] = useState("");
+  const [timeOfRequest, setTimeOfRequest] = useState(0);
+  let [promptInput, setPromptInput] = useState("");
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
+  const [tag, setTag] = useState("");
+  const [tagpre, setTagpre] = useState("");
 
   const [isOpenHistory, setIsOpenHistory] = useState(true);
-  let [chatHistory, SetChatHistory] = useState([]);
+  let [chatHistory, setChatHistory] = useState([]);
   const hintQuestions = [
     "Học viện có bao nhiêu loại học bổng?",
     "Các mốc thời gian quan trọng trong việc tuyển sinh?",
@@ -52,9 +54,9 @@ function ChatBot() {
     "Các câu lạc bộ có ở học viện?",
     "Làm sao để kiếm người yêu khi học đại học?",
   ];
-  let [isLoading, SetIsLoading] = useState(false);
-  let [isGen, SetIsGen] = useState(false);
-  const [dataChat, SetDataChat] = useState([
+  let [isLoading, setIsLoading] = useState(false);
+  let [isGen, setIsGen] = useState(false);
+  const [dataChat, setDataChat] = useState([
     [
       "start",
       [
@@ -71,46 +73,52 @@ function ChatBot() {
   }, []);
   useEffect(() => {
     const interval = setInterval(() => {
-      SetTimeOfRequest((timeOfRequest) => timeOfRequest + 1);
+      setTimeOfRequest((timeOfRequest) => timeOfRequest + 1);
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-
+  // useEffect(() => {
+  //   sendGGSheet()
+  // }, [tagpre]);
   function ScrollToEndChat() {
     messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   }
   const onChangeHandler = (event) => {
-    SetPromptInput(event.target.value);
-    SetInput(event.target.value);
+    setPromptInput(event.target.value);
+    // setInput(event.target.value);
   };
-  // const sendTelegramBotForGgsheet = async () => {
-  //   try {
-  //     const data = {
-  //       ["question"]: input,
-  //       ["answer"]: output,
+  const sendGGSheet = async () => {
+    try {
+      const data = {
+        ["question"]: input,
+        ["answer"]: output,
+        ["tag"]: tag,
+        ["tag_predict"]: tagpre,
 
-  //     };
-  //     await axios
-  //       .post(
-  //         "https://api.sheetbest.com/sheets/5d12cce3-725a-4e8d-9b8d-a6269fe1688b",
-  //         data
-  //       )
+      };
+      await axios
+        .post(
+          "https://api.sheetbest.com/sheets/740ee395-c884-4476-85d0-27b094b0b5c4",
+          data
+        )
 
-  //   } catch (err) {
-  //     console.log("err: ", err);
-  //   }
-  // }
+    } catch (err) {
+      console.log("err: ", err);
+    }
+  }
   async function SendMessageChat() {
     if (promptInput !== "" && isLoading === false) {
-      SetTimeOfRequest(0);
-      SetIsGen(true);
-      SetPromptInput("");
-      SetInput("");
-      SetIsLoading(true);
-      SetDataChat((prev) => [...prev, ["end", [promptInput]]]);
-      SetChatHistory((prev) => [promptInput, ...prev]);
+      setTimeOfRequest(0);
+      setIsGen(true);
+      setPromptInput("");
+      setInput("")
+      setOutput("")
+      setTag("")
+      setTagpre("")
+      setIsLoading(true);
+      setDataChat((prev) => [...prev, ["end", [promptInput]]]);
+      setChatHistory((prev) => [promptInput, ...prev]);
       try {
-        // await sendTelegramBotForGgsheet()
         // Gửi yêu cầu đến API bằng axios
         const API_ENDPOINT = `${ENVIRONMENT_CONFIG}/api/chatbot`;
         const response = await axios.get(API_ENDPOINT, {
@@ -118,15 +126,26 @@ function ChatBot() {
           headers: {
             "ngrok-skip-browser-warning": "69420",
           },
+
         });
-        SetDataChat((prev) => [...prev, ["start", [response.data]]]);
+        console.log('Câu hỏi:', response.data?.query);
+        console.log('Câu trả lời:', response.data?.response);
+        console.log('tag:', response.data?.tag);
+        console.log('tag dự đoán:', response.data?.tag_predict);
+        console.log("-------------")
+        setInput(response.data?.query)
+        setOutput(response.data?.response)
+        setTag(response.data?.tag)
+        setTagpre(response.data?.tag_predict)
+
+        setDataChat((prev) => [...prev, ["start", [response.data?.response]]]);
       } catch (error) {
-        SetDataChat((prev) => [
+        setDataChat((prev) => [
           ...prev,
           ["start", ["Lỗi không thể kết nối với server ", null]],
         ]);
       } finally {
-        SetIsLoading(false);
+        setIsLoading(false);
         if (inputRef.current) {
           inputRef.current.focus();
         }
@@ -197,7 +216,7 @@ function ChatBot() {
               <li
                 key={i}
                 onClick={() => {
-                  SetPromptInput(mess), SetInput(mess);
+                  setPromptInput(mess);
                 }}
               >
                 <p className="max-w-64">
@@ -229,7 +248,7 @@ function ChatBot() {
                     sequence={[
                       dataMessages[1][0],
                       () => {
-                        SetIsGen(false), SetOutput(dataMessages[1][0]);
+                        setIsGen(false);
                       },
                     ]}
                     cursor={false}
