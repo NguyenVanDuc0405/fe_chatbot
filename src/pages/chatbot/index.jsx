@@ -41,7 +41,7 @@ function ChatBot() {
     "Ngành Công nghệ Internet vạn vật (IoT) được đào tạo ở cơ sở nào?",
     "Học phí của Chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
     "Học viện đào tạo những ngành nào ở cơ sở miền bắc?",
-    "Điểm chuẩn ngành công nghệ thông tin theo phương thức thi thpt năm nay tại cơ sở miền bắc là bao nhiêu?",
+    "Điểm chuẩn ngành công nghệ thông tin năm nay?",
     "Chỉ tiêu của Ngành Công nghệ thông tin là bao nhiêu?",
     "Mã ngành của chương trình Công nghệ thông tin (định hướng ứng dụng) là bao nhiêu?",
     "Thời gian đào tạo của ngành Công nghệ thông tin là bao lâu?",
