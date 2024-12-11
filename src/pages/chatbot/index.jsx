@@ -184,7 +184,7 @@ function ChatBot() {
           </div>
         )}
         <div
-          className={`relative w-full h-full overflow-auto scrollbar-none bg-gray-50 pl-4 pt-16 transition-transform duration-300 ease-in-out transform ${isOpenHistory ? "translate-x-0" : "-translate-x-full"}`}
+          className={`relative w-full h-full overflow-auto bg-gray-50 pl-4 pt-16 transition-transform duration-300 ease-in-out transform ${isOpenHistory ? "translate-x-0" : "-translate-x-full"}`}
         >
           <div>
             <ul className="menu text-sm">
@@ -207,7 +207,7 @@ function ChatBot() {
         </div>
       </div>
       <div className="hidden lg:block absolute lg:w-64 lg:h-[89vh] w-0 h-0 right-0">
-        <div className="w-full h-full bg-gray-50 rounded-2xl overflow-auto scrollbar-none pt-10 pl-4">
+        <div className="w-full h-full bg-gray-50 rounded-2xl overflow-auto pt-10 pl-4">
           <h2 className="font-bold mb-2">
             Những câu hỏi phổ biến
           </h2>
@@ -231,7 +231,7 @@ function ChatBot() {
       <div className="flex justify-center h-full w-full">
         <div
           id="chat-area"
-          className={`text-sm bg-white rounded-xl border-2 h-full p-2 scrollbar-none overflow-auto scroll-y-auto pb-20 transition-width
+          className={`text-sm bg-white rounded-xl border-2 h-full p-2 overflow-auto scroll-y-auto pb-20 transition-width
              w-11/12 ${isOpenHistory ? "lg:w-1/2" : "lg:w-2/3"}`}
         >
           {dataChat.map((dataMessages, i) =>
@@ -280,7 +280,7 @@ function ChatBot() {
                   aria-label="Loading Spinner"
                   data-testid="loader"
                 />
-                <p className="text-xs font-medium">{timeOfRequest + "/15s"}</p>
+                <p className="text-xs font-medium">{timeOfRequest + "/30s"}</p>
               </div>
             </div>
           ) : (
